@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Learning</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div :style="{ fontSize: postFontSize + 'em'}">
+            <blog-post
+                v-for="post in posts"
+                :key="post.id"
+                :post="post"
+                v-on:enlarge-text="onEnlargeText"
+            ></blog-post>
+        </div>
+    </div>
+    <script>
+        Vue.component('blog-post', {
+            props: ['post'],
+            data: function() {
+                return {
+                    
+                }
+            },
+            template: `
+                <div>
+                    <h3>{{ post.title }}</h3>
+                    <button v-on:click="$emit('enlarge-text', 0.1)">Увеличить размер текста</button>
+                    <div class="m15" v-html="post.content"></div>
+                </div>
+            `
+        })
+
+        var App = new Vue({
+            el: '#app',
+            data: {
+                posts: [
+                    { 
+                        id: 1, 
+                        title: 'Intro',
+                        content: 'Sit amet consectetur adipisicing elit. Non, harum repellendus ipsa excepturi nemo, quam dolorem ipsam dolore esse totam aliquid quis'
+                    },
+                    { 
+                        id: 2, 
+                        title: 'Basic',
+                        content: 'Rabore cum doloremque laborum culpa placeat, suscipit, nostrum quae itaque dolores alias sed voluptates aliquam?'
+                    },
+                    { 
+                        id: 3, 
+                        title: 'Turns',
+                        content: 'Deserunt hic pariatur facere quibusdam officia debitis autem exercitationem. Eius quibusdam perferendis optio?'
+                    },
+                ],
+                postFontSize: 1
+            },
+            methods: {
+                onEnlargeText: function(enlargeEmount) {
+                    this.postFontSize += enlargeEmount
+                }
+            },
+        })
+
+    </script>
+</body>
+
+</html>

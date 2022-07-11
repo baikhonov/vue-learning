@@ -12,15 +12,28 @@
 
 <body>
     <div id="app">
+        <async-example></async-example>
     </div>
     <script>
+    
+        Vue.component('async-example', function(resolve, reject) {
+            setTimeout(function() {
+                // Передаём определение компонента в коллбэк resolve
+                resolve({
+                    template: `<div>Я - асинхронный</div>`
+                })
+            }, 2000)
+        });
 
-        var App = new Vue({
-            el: '#app',
+        new Vue({
+            el: "#app",
             data: {
+                
+            },
+            computed: {
+                
             }
-        })
-
+        });
     </script>
 </body>
 
